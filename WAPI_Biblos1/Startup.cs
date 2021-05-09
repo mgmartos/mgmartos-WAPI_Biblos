@@ -32,16 +32,22 @@ namespace WAPI_Biblos1
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<BiblosDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
-                            //.EnableSensitiveDataLogging(true)
-                            //.UseLoggerFactory(new LoggerFactory().addC;
+            //.EnableSensitiveDataLogging(true)
+            //.UseLoggerFactory(new LoggerFactory().addC;
 
 
+            services.AddCors(options =>
+            {
+                var frontendURL = Configuration.GetValue<string>("frontend_url");
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
+                //.WithExposedHeaders(new string[] { "cantidadTotalRegistros" });
 
+                });
+            });
 
-
-
-
-
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -62,6 +68,7 @@ namespace WAPI_Biblos1
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseAuthorization();
 

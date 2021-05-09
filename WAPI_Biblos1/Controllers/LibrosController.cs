@@ -26,9 +26,22 @@ namespace WAPI_Biblos1.Controllers
         }
 
         [HttpGet("autores")]
-        public async Task<ActionResult<List<Autor>>> GetAutores()
+        public async Task<ActionResult<List<Autor>>> GetAutores(string tipo="n")
         {
-            return await this.context.Autores.AsQueryable().OrderBy(a => a.NombreAutor).ToListAsync();
+            if (tipo.ToLower() == "n")
+                return await this.context.Autores.AsQueryable().OrderBy(a => a.NombreAutor).ToListAsync();
+            else
+                return await this.context.Autores.AsQueryable().OrderBy(a => a.Apellidos).ToListAsync();
+        }
+
+
+        [HttpGet("autoresLetra")]
+        public async Task<ActionResult<List<Autor>>> GetAutoresletra(string tipo="n", string letra="A")
+        {
+            if (tipo.ToLower() == "n")
+                return await this.context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(letra)).OrderBy(a => a.NombreAutor).ToListAsync();
+            else
+                return await this.context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(letra)).OrderBy(a => a.Apellidos).ToListAsync();
         }
 
         [HttpGet("inicio")]
@@ -42,7 +55,31 @@ namespace WAPI_Biblos1.Controllers
             lista.Add(numEdit);
             lista.Add(numLibros);
             return lista;
+        }
 
+
+        //[HttpGet("inicio")]
+        //public ActionResult<List<int>> GetDatosInicio()
+        //{
+        //    int numAuth = this.context.Autores.Count();
+        //    int numEdit = this.context.Editoriales.Count();
+        //    int numLibros = this.context.Libros.Count();
+        //    List<int> lista = new List<int>();
+        //    lista.Add(numAuth);
+        //    lista.Add(numEdit);
+        //    lista.Add(numLibros);
+        //    return lista;
+        //}
+
+
+        [HttpGet]
+        [Route("todos2")]
+        public ActionResult<string> GetAll()
+        {
+            // List<mlib> ooo = entidad.mlibs.ToList();
+            //IEnumerable<mlib> oooo = entidad.mlibs.ToList();
+
+            return "Salida del servicio";
         }
 
         [HttpGet("libros")]
