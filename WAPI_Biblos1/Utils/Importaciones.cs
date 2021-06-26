@@ -167,6 +167,7 @@ namespace WAPI_Biblos1.Utils
                     catch(Exception ex)
                     {
                         fecha = new DateTime(1970, 01, 01);
+                        System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
                     }
 
                     rlibro.Fecha = fecha;

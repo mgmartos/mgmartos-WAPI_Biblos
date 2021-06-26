@@ -19,10 +19,6 @@ namespace WAPI_Biblos1.Models
         public int Paginas { get; set; }
         public string Comentario { get; set; }
     }
-
-
-
-
 }
 //$id: "839",
 //idLibro: 1852,
