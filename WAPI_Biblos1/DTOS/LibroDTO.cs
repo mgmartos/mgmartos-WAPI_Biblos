@@ -10,14 +10,12 @@ namespace WAPI_Biblos1.Models
     {
         public string Titulo { get; set; }
         public int AutorId { get; set; }
-        public int CodAutor { get; set; }
-        public string NombreAutor { get; set; }
-        public int CodEditorial { get; set; }
-        public string NombreEditorial { get; set; }
-        public string Tema { get; set; }
+        public int EditorialId { get; set; }
+        public int TemaId { get; set; }
         public int Calificacion { get; set; }
         public int Paginas { get; set; }
         public string Comentario { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }
 //$id: "839",

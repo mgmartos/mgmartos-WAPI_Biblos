@@ -127,7 +127,32 @@ namespace WAPI_Biblos1.Controllers
         }
 
 
-
+        [HttpPut("altal/{id:int}")]
+        public async Task<ActionResult> PutLibro(int id, [FromBody] LibroDTO libroDTO)
+        {
+            var libro = await context.Libros.FirstOrDefaultAsync(x => x.Id == id);
+            if (libro == null)
+            {
+                libro = new Libro() { Titulo =  libroDTO.Titulo , AutorId = libroDTO.AutorId , EditorialId = libroDTO.EditorialId , 
+                                      TemaId = libroDTO.TemaId, Calificacion = libroDTO.Calificacion, Paginas = libroDTO.Paginas, Comentario = libroDTO.Comentario, 
+                                      Fecha = libroDTO.Fecha};
+                context.Libros.Add(libro);
+            }
+            else
+            {
+               // libro = mapper.Map<Libro>(libroDTO);
+                libro.Titulo = libroDTO.Titulo;
+                libro.AutorId = libroDTO.AutorId;
+                libro.Calificacion = libroDTO.Calificacion;
+                libro.Comentario = libroDTO.Comentario;
+                libro.EditorialId = libroDTO.EditorialId;
+                libro.Fecha = libroDTO.Fecha;
+                libro.Paginas = libroDTO.Paginas;
+                libro.TemaId = libroDTO.TemaId;
+            }
+            await context.SaveChangesAsync();
+            return Ok(libro);
+        }
 
 
 
@@ -166,10 +191,61 @@ namespace WAPI_Biblos1.Controllers
             return await this.context.Editoriales.AsQueryable().OrderBy(a => a.NombreEditorial).ToListAsync();
         }
 
+        [HttpGet("nomenclatoreditorial")]
+        public async Task<ActionResult<List<Editorial>>> GetEditorialesletras(string semilla = "")
+        {
+            List<Editorial> editorialesNombre = await this.context.Editoriales.Where(a => a.NombreEditorial.StartsWith(semilla)).OrderBy(a => a.NombreEditorial).ToListAsync();
+            return (List<Editorial>)editorialesNombre;
+
+        }
+
+
         [HttpGet("temas")]
         public async Task<ActionResult<List<Tema>>> GetTemas()
         {
             return await this.context.Temas.AsQueryable().OrderBy(a => a.NombreTema).ToListAsync();
+        }
+
+        // Alta Tema
+        [HttpPut("altat/{id:int}")]
+        public async Task<ActionResult> Put(int id, [FromBody] TemaCrearDTO temaDTO)
+        {
+            var tema = await context.Temas.FirstOrDefaultAsync(x => x.Id == id);
+            if (tema == null)
+            {
+                tema = new Tema() { NombreTema = temaDTO.nombreTema};
+                context.Temas.Add(tema);
+            }
+            else
+            {
+                tema.NombreTema = temaDTO.nombreTema;
+            }
+            await context.SaveChangesAsync();
+            //            return NoContent();
+            return Ok(tema);
+        }
+
+        // Delete Tema
+        [HttpDelete("delTema/{id:int}")]
+        public async Task<ActionResult> DeleteT(int id)
+        {
+            var tema = await this.context.Temas.FirstOrDefaultAsync(x => x.Id == id);
+            if (tema == null)
+            {
+                return NoContent();
+            }
+            this.context.Remove(tema);
+            await this.context.SaveChangesAsync();
+            return NoContent();
+
+        }
+
+        [HttpGet("nomenclatortema")]
+        public async Task<ActionResult<List<Tema>>> GetTemasletras(string semilla = "")
+        {
+             List<Tema> temasNombre = await this.context.Temas.Where(a => a.NombreTema.StartsWith(semilla)).OrderBy(a => a.NombreTema).ToListAsync();
+            return (List<Tema>)temasNombre;
+
         }
 
         [HttpGet("traspaso")]
@@ -197,9 +273,13 @@ namespace WAPI_Biblos1.Controllers
 
 
         [HttpGet("autor")]
-        public async Task<ActionResult<Autor>> GetAutor(int id)
+        public async Task<ActionResult<Autor>> GetAutor(int idautor)
         {
-            var auth = await this.context.Autores.Where(a => a.Id == id).FirstOrDefaultAsync();
+            var auth = await this.context.Autores.Where(a => a.Id == idautor).FirstOrDefaultAsync();
+            if (auth == null)
+            {
+                return NotFound();
+            }
             return auth;
         }
 
@@ -212,8 +292,6 @@ namespace WAPI_Biblos1.Controllers
             {
                 autor = new Autor() { NombreAutor = autorDTO.nombre + " " + autorDTO.apellidos, Nombre = autorDTO.nombre, Apellidos = autorDTO.apellidos };
                 context.Autores.Add(autor);
-
-
             }
             else
             {
@@ -229,6 +307,34 @@ namespace WAPI_Biblos1.Controllers
 
         }
 
+        [HttpDelete("delAutor/{id:int}")]
+        public async Task<ActionResult> DeleteA(int id)
+        {
+            var autor =  await this.context.Autores.FirstOrDefaultAsync(x=> x.Id == id);
+            if (autor == null)
+            {
+                return NoContent();
+            }
+            this.context.Remove(autor);
+            await this.context.SaveChangesAsync();
+            return NoContent();
+
+        }
+
+        [HttpGet("nomenclatorautor")]
+        public async Task<ActionResult<List<Autor>>> GetAutoresletras(string semilla = "")
+        {
+            // IQueryable<List<Autor>> autoresNombre = (IQueryable<List<Autor>>)await this.context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(semilla)).OrderBy(a => a.NombreAutor).ToListAsync();
+            // IQueryable<List<Autor>> autoresApellido = (IQueryable<List<Autor>>)await this.context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(semilla)).OrderBy(a => a.Apellidos).ToListAsync();
+            // autoresNombre = autoresNombre.Union(autoresApellido);
+            List<Autor> autoresNombre = await this.context.Autores.Where(a => a.NombreAutor.StartsWith(semilla)).OrderBy(a => a.NombreAutor).ToListAsync();
+            List<Autor> autoresApellido = await this.context.Autores.Where(a => a.Apellidos.StartsWith(semilla)).OrderBy(a => a.Apellidos).ToListAsync();
+
+            //var autoresNombre2 =  (List<Autor>)autoresNombre.Union(autoresApellido);
+            autoresNombre.AddRange(autoresApellido);
+            return (List<Autor>)autoresNombre;
+
+        }
 
     }
 }
