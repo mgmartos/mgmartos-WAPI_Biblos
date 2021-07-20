@@ -1,0 +1,48 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2021-07-14T18:46:55.8909696Z"
+    },
+    "appInsights1": {
+      "restored": true,
+      "restoreTime": "2021-07-14T18:45:13.3691019Z"
+    },
+    "apis1": {
+      "restored": true,
+      "restoreTime": "2021-07-14T18:29:54.5854771Z"
+    }
+  },
+  "parameters": {
+    "apis1.resourceGroupName": {
+      "Name": "apis1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "BiblosMGM"
+    },
+    "appInsights1.subscriptionId": {
+      "Name": "appInsights1.subscriptionId",
+      "Type": "subscription",
+      "Value": "5b0c9ced-7b17-4eed-8de0-047516f35d8f"
+    },
+    "appInsights1.resourceGroupName": {
+      "Name": "appInsights1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "BiblosMGM"
+    },
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "5b0c9ced-7b17-4eed-8de0-047516f35d8f"
+    },
+    "apis1.subscriptionId": {
+      "Name": "apis1.subscriptionId",
+      "Type": "subscription",
+      "Value": "5b0c9ced-7b17-4eed-8de0-047516f35d8f"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "BiblosMGM"
+    }
+  }
+}

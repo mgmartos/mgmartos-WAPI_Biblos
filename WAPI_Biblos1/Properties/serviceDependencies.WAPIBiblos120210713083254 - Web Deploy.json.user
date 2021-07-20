@@ -1,0 +1,64 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "restored": false,
+      "restoreTime": "2021-07-13T10:07:55.4735118Z"
+    },
+    "appInsights1": {
+      "restored": true,
+      "restoreTime": "2021-07-13T09:55:46.5655986Z"
+    }
+  },
+  "parameters": {
+    "WAPIBiblos120210713083254.resourceGroupName": {
+      "Name": "WAPIBiblos120210713083254.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "BiblosMGM"
+    },
+    "appInsights1.subscriptionId": {
+      "Name": "appInsights1.subscriptionId",
+      "Type": "subscription",
+      "Value": "5b0c9ced-7b17-4eed-8de0-047516f35d8f"
+    },
+    "appInsights1.resourceGroupName": {
+      "Name": "appInsights1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "BiblosMGM"
+    },
+    "mssql1.resourceGroupLocation": {
+      "Name": "mssql1.resourceGroupLocation",
+      "Type": "location",
+      "Value": "westeurope"
+    },
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "5b0c9ced-7b17-4eed-8de0-047516f35d8f"
+    },
+    "WAPIBiblos120210713083254.subscriptionId": {
+      "Name": "WAPIBiblos120210713083254.subscriptionId",
+      "Type": "subscription",
+      "Value": "5b0c9ced-7b17-4eed-8de0-047516f35d8f"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "BiblosMGM"
+    },
+    "WAPIBiblos120210713083254.resourceName": {
+      "Name": "WAPIBiblos120210713083254.resourceName",
+      "Type": null,
+      "Value": "WAPIBiblos120210713083254"
+    },
+    "WAPIBiblos120210713083254.resourceGroupLocation": {
+      "Name": "WAPIBiblos120210713083254.resourceGroupLocation",
+      "Type": null,
+      "Value": "westeurope"
+    },
+    "subscriptionId": {
+      "Name": "subscriptionId",
+      "Type": "subscription",
+      "Value": "5b0c9ced-7b17-4eed-8de0-047516f35d8f"
+    }
+  }
+}

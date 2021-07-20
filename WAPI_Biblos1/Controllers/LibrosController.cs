@@ -126,6 +126,14 @@ namespace WAPI_Biblos1.Controllers
                             .Include(x => x.Tema).ToListAsync();
         }
 
+        [HttpGet("librostema")]
+        public async Task<ActionResult<List<Libro>>> GetLibrosTema(int idtema)
+        {
+            return await this.context.Libros.Where(x => x.TemaId == idtema)
+                            .Include(x => x.Autor)
+                            .Include(x => x.Editorial)
+                            .Include(x => x.Tema).ToListAsync();
+        }
 
         [HttpPut("altal/{id:int}")]
         public async Task<ActionResult> PutLibro(int id, [FromBody] LibroDTO libroDTO)
@@ -182,6 +190,16 @@ namespace WAPI_Biblos1.Controllers
                             .Include(x => x.Editorial)
                             .Include(x => x.Tema).ToListAsync();
             }
+        }
+
+        [HttpGet("nomenclatorlibros")]
+        public async Task<ActionResult<List<Libro>>> GetLibrosNomenclator([FromQuery] PaginacionDTO paginacionDTO, string semilla = "sueñan")
+        {
+                var libros =  await this.context.Libros.AsQueryable().Where(x => x.Titulo.Contains(semilla)).OrderBy(x => x.Titulo)
+                                .Include(x => x.Autor)
+                                .Include(x => x.Editorial)
+                                .Include(x => x.Tema).ToListAsync();
+            return libros;
         }
 
 
@@ -327,8 +345,8 @@ namespace WAPI_Biblos1.Controllers
             // IQueryable<List<Autor>> autoresNombre = (IQueryable<List<Autor>>)await this.context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(semilla)).OrderBy(a => a.NombreAutor).ToListAsync();
             // IQueryable<List<Autor>> autoresApellido = (IQueryable<List<Autor>>)await this.context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(semilla)).OrderBy(a => a.Apellidos).ToListAsync();
             // autoresNombre = autoresNombre.Union(autoresApellido);
-            List<Autor> autoresNombre = await this.context.Autores.Where(a => a.NombreAutor.StartsWith(semilla)).OrderBy(a => a.NombreAutor).ToListAsync();
-            List<Autor> autoresApellido = await this.context.Autores.Where(a => a.Apellidos.StartsWith(semilla)).OrderBy(a => a.Apellidos).ToListAsync();
+            List<Autor> autoresNombre = await this.context.Autores.Where(a => a.Nombre.Contains(semilla)).OrderBy(a => a.Nombre).ToListAsync();
+            List<Autor> autoresApellido = await this.context.Autores.Where(a => a.Apellidos.Contains(semilla)).OrderBy(a => a.Apellidos).ToListAsync();
 
             //var autoresNombre2 =  (List<Autor>)autoresNombre.Union(autoresApellido);
             autoresNombre.AddRange(autoresApellido);

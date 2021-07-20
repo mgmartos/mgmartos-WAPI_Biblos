@@ -53,6 +53,7 @@ namespace WAPI_Biblos1
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WAPI_Biblos1", Version = "v1" });
             });
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
