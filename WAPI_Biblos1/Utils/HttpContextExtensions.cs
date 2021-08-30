@@ -16,5 +16,14 @@ namespace WAPI_Biblos1.Utils
             int cantidad = await queryable.CountAsync();
             httpContext.Response.Headers.Add("cantidadTotalRegistros", cantidad.ToString());
         }
+
+        //public static void  InsertarParametroEnCabecera<T>(this HttpContext httpContext,
+        //   List<T> lista)
+        //{
+        //    if (httpContext == null) { throw new ArgumentNullException(nameof(httpContext)); }
+        //    httpContext.Response.Headers.Add("cantidadTotalRegistros", lista.Count.ToString());
+        //}
+
+
     }
 }

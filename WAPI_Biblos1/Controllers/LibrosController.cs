@@ -27,8 +27,10 @@ namespace WAPI_Biblos1.Controllers
             this.mapper = mapper;
         }
 
+
+
         [HttpGet("autores")]
-        public async Task<ActionResult<List<Autor>>> GetAutores(string tipo="n")
+        public async Task<ActionResult<List<Autor>>> GetAutores(string tipo = "n")
         {
             if (tipo.ToLower() == "n")
                 return await this.context.Autores.AsQueryable().OrderBy(a => a.NombreAutor).ToListAsync();
@@ -36,20 +38,44 @@ namespace WAPI_Biblos1.Controllers
                 return await this.context.Autores.AsQueryable().OrderBy(a => a.Apellidos).ToListAsync();
         }
 
+        [HttpGet("autorespag")]
+        public async Task<ActionResult<List<Autor>>> GetAutorespag([FromQuery] PaginacionDTO paginacionDTO, string tipo = "n")
+        {
+            var queryable = context.Autores.AsQueryable();
+            await HttpContext.InsertarParametroEnCabecera(queryable);
+            if (tipo.ToLower() == "n")
+                return await (this.context.Autores.AsQueryable().OrderBy(a => a.NombreAutor)).Paginar(paginacionDTO).ToListAsync();
+            else
+                return await (this.context.Autores.AsQueryable().OrderBy(a => a.Apellidos)).Paginar(paginacionDTO).ToListAsync();
+        }
+
 
         [HttpGet("autoresLetra")]
-        public async Task<ActionResult<List<Autor>>> GetAutoresletra(string tipo="n", string letra="A")
+        public async Task<ActionResult<List<Autor>>> GetAutoresletra([FromQuery] PaginacionDTO paginacionDTO, string tipo = "n", string letra = "A")
         {
+            var queryable = context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(letra));
+            var queryable2 = context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(letra));
+            //var queryable = context.Autores.AsQueryable();
+            //await HttpContext.InsertarParametroEnCabecera(queryable);
+
             if (tipo.ToLower() == "n")
-                return await this.context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(letra)).OrderBy(a => a.NombreAutor).ToListAsync();
+            {
+                /// var  queryable = context.Autores.AsQueryable();//.Where(a => a.Nombre.StartsWith(letra));
+                await HttpContext.InsertarParametroEnCabecera(queryable);
+                return await (this.context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(letra)).OrderBy(a => a.NombreAutor)).Paginar(paginacionDTO).ToListAsync();
+            }
             else
-                return await this.context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(letra)).OrderBy(a => a.Apellidos).ToListAsync();
+            {
+                await HttpContext.InsertarParametroEnCabecera(queryable2);
+                return await (this.context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(letra)).OrderBy(a => a.Apellidos)).Paginar(paginacionDTO).ToListAsync();
+            }
         }
 
 
         [HttpGet("inicio")]
         public async Task<ActionResult<List<int>>> GetDatosInicio()
         {
+
             int numAuth = await this.context.Autores.CountAsync();
             int numEdit = await this.context.Editoriales.CountAsync();
             int numLibros = await this.context.Libros.CountAsync();
@@ -57,6 +83,7 @@ namespace WAPI_Biblos1.Controllers
             lista.Add(numAuth);
             lista.Add(numEdit);
             lista.Add(numLibros);
+            System.Threading.Thread.Sleep(1000);
             return lista;
         }
 
@@ -86,12 +113,17 @@ namespace WAPI_Biblos1.Controllers
         }
 
         [HttpGet("libros")]
-        public async Task<ActionResult<List<Libro>>> GetLibros()
+
+        public async Task<ActionResult<List<Libro>>> GetLibros([FromQuery] PaginacionDTO paginacionDTO)
         {
-            return await (this.context.Libros.Include(x => x.Autor)
+            var queryable = context.Libros.AsQueryable();
+            await HttpContext.InsertarParametroEnCabecera(queryable);
+            var libros =  await (this.context.Libros.AsQueryable().OrderBy(x => x.Titulo)
+                            .Include(x => x.Autor)
                             .Include(x => x.Editorial)
-                            .Include(x => x.Tema))
-                            .ToListAsync();
+                            .Include(x => x.Tema)).Paginar(paginacionDTO).ToListAsync();
+            return libros;
+
         }
         [HttpGet("libro")]
         //[Route("libro/{Id:int}")]
@@ -195,10 +227,19 @@ namespace WAPI_Biblos1.Controllers
         [HttpGet("nomenclatorlibros")]
         public async Task<ActionResult<List<Libro>>> GetLibrosNomenclator([FromQuery] PaginacionDTO paginacionDTO, string semilla = "sueñan")
         {
-                var libros =  await this.context.Libros.AsQueryable().Where(x => x.Titulo.Contains(semilla)).OrderBy(x => x.Titulo)
-                                .Include(x => x.Autor)
-                                .Include(x => x.Editorial)
-                                .Include(x => x.Tema).ToListAsync();
+            var libros = await this.context.Libros.AsQueryable().Where(x => x.Titulo.Contains(semilla)).OrderBy(x => x.Titulo)
+                            .Include(x => x.Autor)
+                            .Include(x => x.Editorial)
+                            .Include(x => x.Tema).ToListAsync();
+
+            //var libros2 = await this.context.Libros.AsQueryable().Where(x => x.Titulo.Contains(semilla)).OrderBy(x => x.Titulo)
+            //                    .Include(x => x.Autor)
+            //                    .Include(x => x.Editorial)
+            //                    .Include(x => x.Tema).Paginar(paginacionDTO).ToListAsync();
+
+            //HttpContext.InsertarParametroEnCabecera(libros2);
+
+
             return libros;
         }
 

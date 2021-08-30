@@ -41,8 +41,8 @@ namespace WAPI_Biblos1
                 var frontendURL = Configuration.GetValue<string>("frontend_url");
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
-                //.WithExposedHeaders(new string[] { "cantidadTotalRegistros" });
+                    builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader()
+                    .WithExposedHeaders(new string[] { "cantidadTotalRegistros" });
 
                 });
             });
