@@ -1,8 +1,5 @@
 {
   "dependencies": {
-    "apis1": {
-      "type": "apis"
-    },
     "appInsights1": {
       "type": "appInsights",
       "connectionId": "APPINSIGHTS_CONNECTIONSTRING"
@@ -10,6 +7,9 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "connectionStrings/defaultConnection"
+    },
+    "apis1": {
+      "type": "apis"
     }
   }
 }
