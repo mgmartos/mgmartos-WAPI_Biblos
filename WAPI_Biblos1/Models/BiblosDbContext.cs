@@ -14,7 +14,8 @@ namespace WAPI_Biblos1.Models
         public DbSet<Editorial> Editoriales { get; set; }
         public DbSet<Tema> Temas { get; set; }
         public DbSet<Libro> Libros { get; set; }
-       
+        public DbSet<Lecturas> Lecturas { get; set; }
+
         public BiblosDbContext( DbContextOptions options) : base(options)
         {
             

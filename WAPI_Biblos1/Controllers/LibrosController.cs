@@ -79,10 +79,12 @@ namespace WAPI_Biblos1.Controllers
             int numAuth = await this.context.Autores.CountAsync();
             int numEdit = await this.context.Editoriales.CountAsync();
             int numLibros = await this.context.Libros.CountAsync();
+            int numlecturas= await this.context.Lecturas.CountAsync();
             List<int> lista = new List<int>();
             lista.Add(numAuth);
             lista.Add(numEdit);
             lista.Add(numLibros);
+            lista.Add(numlecturas);
             System.Threading.Thread.Sleep(500);
             return lista;
         }
@@ -97,7 +99,7 @@ namespace WAPI_Biblos1.Controllers
             //IEnumerable<mlib> oooo = entidad.mlibs.ToList();
  
 
-            return "Salida del servicio";
+            return "Salida del servicio WebApi1";
         }
 
         [HttpGet("libros")]
@@ -426,6 +428,15 @@ namespace WAPI_Biblos1.Controllers
             //var autoresNombre2 =  (List<Autor>)autoresNombre.Union(autoresApellido);
             autoresNombre.AddRange(autoresApellido);
             return (List<Autor>)autoresNombre;
+
+        }
+
+        [HttpGet("lecturas")]
+
+        public async Task<ActionResult<List<Lecturas>>> GetLecturas()
+        {
+            return await this.context.Lecturas.AsQueryable().OrderByDescending(a => a.fecha).ToListAsync();
+
 
         }
 

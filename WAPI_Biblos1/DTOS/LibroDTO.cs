@@ -17,6 +17,19 @@ namespace WAPI_Biblos1.Models
         public string Comentario { get; set; }
         public DateTime Fecha { get; set; }
     }
+
+    public class LecturasDTO
+    {
+        public string titulo { get; set; }
+        public string autor { get; set; }
+        public int CodAutor { get; set; }
+        public DateTime fecha { get; set; }       
+        public int calificacion { get; set; }
+        public string comentario { get; set; }
+        public Boolean Ebook { get; set; }
+        public DateTime fecha_Inicio { get; set; }
+        public int paginas { get; set; }
+    }
 }
 //$id: "839",
 //idLibro: 1852,
