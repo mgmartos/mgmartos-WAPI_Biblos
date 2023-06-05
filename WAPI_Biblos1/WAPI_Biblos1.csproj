@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>60409ebe-5e3f-41ef-8be2-0a5925edf9ea</UserSecretsId>
     <ApplicationInsightsResourceId>/subscriptions/5b0c9ced-7b17-4eed-8de0-047516f35d8f/resourcegroups/BiblosMGM/providers/Microsoft.Insights/components/WAPIBiblos1</ApplicationInsightsResourceId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

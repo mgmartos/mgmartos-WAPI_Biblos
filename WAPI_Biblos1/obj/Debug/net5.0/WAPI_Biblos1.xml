@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WAPI_Biblos1</name>
+    </assembly>
+    <members>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetCantAutoresletra(System.String,System.String)">
+            <summary>
+            Devuelve la cantidad de autores que existen con la inicial dada.
+            </summary>
+            <param name="tipo"></param>
+            <param name="letra"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetDatosInicio2">
+            <summary>
+            Obtiene el total de objetos bibliográficos en la BBDD
+            de forma síncrona
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetDatosInicio">
+            <summary>
+            Obtiene el total de objetos bibliográficos en la BBDD
+            de forma Asíncrona
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibros(WAPI_Biblos1.DTOS.PaginacionDTO)">
+            <summary>
+            Obtiene una lista paginada de los libros (Sin filtros)
+            </summary>
+            <param name="paginacionDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibroP(System.Int32)">
+            <summary>
+            Obtiene un libro de la BBDD por id.
+            </summary>
+            <param name="id"></param>
+            <remarks>
+            parámetro ID . Rem
+            
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibro(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <remarks>
+            Ejemplo anterior con Post
+            </remarks>
+            
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibrosLetra(WAPI_Biblos1.DTOS.PaginacionDTO,System.String)">
+            <summary>
+            Obtiene lista de libros cuyo título comienza por una determinada letra (con Paginación)
+            </summary>
+            <param name="paginacionDTO"></param>
+            <param name="letra"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibrosNomenclator(System.String)">
+            <summary>
+            Libros cuyo título contiene la cadena pasada como parámetro
+            </summary>
+            <param name="semilla"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetEditoriales">
+            <summary>
+            Lista completa de las editoriales existentes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetEditorialesletras(System.String)">
+            <summary>
+            Búsqueda tipo Nomenclator dentro de la lista de editoriales
+            </summary>
+            <param name="semilla"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetTemas">
+            <summary>
+             TEMAS lista de los temas existentes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.Put(System.Int32,WAPI_Biblos1.DTOS.TemaCrearDTO)">
+            <summary>
+            Creación de un nuevo tema
+            </summary>
+            <param name="id"></param>
+            <param name="temaDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.DeleteT(System.Int32)">
+            <summary>
+            Eliminación de un tema de la lista de temas
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetTemasletras(System.String)">
+            <summary>
+            Búsqueda tipo Nomenclator de temas
+            </summary>
+            <param name="semilla"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetAutor(System.Int32)">
+            <summary>
+             AUTORES
+             Obtención de un autor por su ID
+            </summary>
+            <param name="idautor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.Put(System.Int32,WAPI_Biblos1.DTOS.AutorCrearDTO)">
+            <summary>
+            Creación de un nuevo autor
+            </summary>
+            <param name="id"></param>
+            <param name="autorDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.DeleteA(System.Int32)">
+            <summary>
+            Eliminación de un autor de la lista de los mismos por su ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetAutoresletras(System.String)">
+            <summary>
+            Búsqueda tipo nomenclator de autores.
+            Se buscan coincidencias en nombre y en apellidos
+            </summary>
+            <param name="semilla"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLecturas(WAPI_Biblos1.DTOS.PaginacionDTO)">
+            <summary>
+              Obtiene la lista de lecturas paginada
+              Se pasa como parámetro la página y cantidad de registros por página
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLectura(System.String)">
+            <summary>
+            Obtiene el registro de una lectura a partir del título
+            </summary>
+            <param name="titulo"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

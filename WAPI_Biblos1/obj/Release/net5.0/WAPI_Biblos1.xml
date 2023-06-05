@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WAPI_Biblos1</name>
+    </assembly>
+    <members>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetDatosInicio2">
+            <summary>
+            Obtiene el total de objetos bibliográficos en la BBDD
+            de forma síncrona
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetDatosInicio">
+            <summary>
+            Obtiene el total de objetos bibliográficos en la BBDD
+            de forma Asíncrona
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibros(WAPI_Biblos1.DTOS.PaginacionDTO)">
+            <summary>
+            Obtiene una lista paginada de los libros (Sin filtros)
+            </summary>
+            <param name="paginacionDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibroP(System.Int32)">
+            <summary>
+            Obtiene un libro de la BBDD por id.
+            </summary>
+            <param name="id"></param>
+            <remarks>
+            parámetro ID . Rem
+            
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibro(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <remarks>
+            Ejemplo anterior con Post
+            </remarks>
+            
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibrosLetra(WAPI_Biblos1.DTOS.PaginacionDTO,System.String)">
+            <summary>
+            Obtiene lista de libros cuyo título comienza por una determinada letra (con Paginación)
+            </summary>
+            <param name="paginacionDTO"></param>
+            <param name="letra"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLibrosNomenclator(System.String)">
+            <summary>
+            Libros cuyo título contiene la cadena pasada como parámetro
+            </summary>
+            <param name="semilla"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetTemas">
+            <summary>
+                                                TEMAS
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetAutor(System.Int32)">
+            <summary>
+                                        AUTORES
+            </summary>
+            <param name="idautor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLecturas(WAPI_Biblos1.DTOS.PaginacionDTO)">
+            <summary>
+              Obtiene la lista de lecturas paginada
+              Se pasa como parámetro la página y cantidad de registros por página
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WAPI_Biblos1.Controllers.LibrosController.GetLectura(System.String)">
+            <summary>
+            Obtiene el registro de una lectura a partir del título
+            </summary>
+            <param name="titulo"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

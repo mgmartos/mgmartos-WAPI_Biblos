@@ -15,14 +15,17 @@ namespace WAPI_Biblos1.Utils
             if (httpContext == null) { throw new ArgumentNullException(nameof(httpContext)); }
             int cantidad = await queryable.CountAsync();
             httpContext.Response.Headers.Add("cantidadTotalRegistros", cantidad.ToString());
+            httpContext.Response.Headers.Add("cantidad", cantidad.ToString());
         }
 
-        //public static void  InsertarParametroEnCabecera<T>(this HttpContext httpContext,
-        //   List<T> lista)
-        //{
-        //    if (httpContext == null) { throw new ArgumentNullException(nameof(httpContext)); }
-        //    httpContext.Response.Headers.Add("cantidadTotalRegistros", lista.Count.ToString());
-        //}
+        public static void InsertarParametroEnCabecera2<T>(this HttpContext httpContext, IQueryable<T> queryable
+           )
+        {
+            if (httpContext == null) { throw new ArgumentNullException(nameof(httpContext)); }
+            int cantidad = queryable.Count();
+            httpContext.Response.Headers.Add("cantidadTotalRegistros", cantidad.ToString());
+            httpContext.Response.Headers.Add("cantidad", cantidad.ToString());
+        }
 
 
     }

@@ -146,5 +146,7 @@ C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\WAPI_Biblos1.dll
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\WAPI_Biblos1.pdb
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\WAPI_Biblos1.genruntimeconfig.cache
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\ref\WAPI_Biblos1.dll
+C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\bin\Release\net5.0\WAPI_Biblos1.xml
+C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\WAPI_Biblos1.xml
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\bin\Release\net5.0\ref\WAPI_Biblos1.dll
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\staticwebassets\WAPI_Biblos1.StaticWebAssets.xml

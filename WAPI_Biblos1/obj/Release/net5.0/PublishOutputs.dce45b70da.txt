@@ -52,4 +52,5 @@ C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\PubTmp\Out\runtimes\win-
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\PubTmp\Out\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.PerformanceCounter.dll
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\PubTmp\Out\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\PubTmp\Out\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\PubTmp\Out\WAPI_Biblos1.xml
 C:\Pruebas\WAPI_Biblos1\WAPI_Biblos1\obj\Release\net5.0\PubTmp\Out\WAPI_Biblos1.deps.json

@@ -49,6 +49,17 @@ namespace WAPI_Biblos1.Controllers
                 return await (this.context.Autores.AsQueryable().OrderBy(a => a.Apellidos)).Paginar(paginacionDTO).ToListAsync();
         }
 
+        [HttpGet("autorespagsinc")]
+        public ActionResult<List<Autor>> GetAutorespagsinc([FromQuery] PaginacionDTO paginacionDTO, string tipo = "n")
+        {
+            var queryable = context.Autores.AsQueryable();
+            HttpContext.InsertarParametroEnCabecera2(queryable);
+            if (tipo.ToLower() == "n")
+                return  (this.context.Autores.AsQueryable().OrderBy(a => a.NombreAutor)).Paginar(paginacionDTO).ToList();
+            else
+                return (this.context.Autores.AsQueryable().OrderBy(a => a.Apellidos)).Paginar(paginacionDTO).ToList();
+        }
+
 
         [HttpGet("autoresLetra")]
         public async Task<ActionResult<List<Autor>>> GetAutoresletra([FromQuery] PaginacionDTO paginacionDTO, string tipo = "n", string letra = "A")
@@ -71,7 +82,82 @@ namespace WAPI_Biblos1.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve la cantidad de autores que existen con la inicial dada.
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <param name="letra"></param>
+        /// <returns></returns>
+        [HttpGet("cantAutoresLetra")]
+        public int  GetCantAutoresletra([FromQuery]  string tipo = "n", string letra = "A")
+        {
+            var queryable = context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(letra));
+            var queryable2 = context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(letra));
+            //var queryable = context.Autores.AsQueryable();
+            //await HttpContext.InsertarParametroEnCabecera(queryable);
 
+            if (tipo.ToLower() == "n")
+            {
+                /// var  queryable = context.Autores.AsQueryable();//.Where(a => a.Nombre.StartsWith(letra));
+                return queryable.Count();
+            }
+            else
+            {
+                return queryable2.Count();
+            }
+        }
+
+
+        [HttpGet("autoresLetrasinc")]
+        public ActionResult<List<Autor>> GetAutoresletrasinc([FromQuery] PaginacionDTO paginacionDTO, string tipo = "n", string letra = "A")
+        {
+            var queryable = context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(letra));
+            var queryable2 = context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(letra));
+            //var queryable = context.Autores.AsQueryable();
+            //await HttpContext.InsertarParametroEnCabecera(queryable);
+
+            if (tipo.ToLower() == "n")
+            {
+                /// var  queryable = context.Autores.AsQueryable();//.Where(a => a.Nombre.StartsWith(letra));
+                HttpContext.InsertarParametroEnCabecera2(queryable);
+                return (this.context.Autores.AsQueryable().Where(a => a.Nombre.StartsWith(letra)).OrderBy(a => a.NombreAutor)).Paginar(paginacionDTO).ToList();
+            }
+            else
+            {
+                HttpContext.InsertarParametroEnCabecera2(queryable2);
+                return (this.context.Autores.AsQueryable().Where(a => a.Apellidos.StartsWith(letra)).OrderBy(a => a.Apellidos)).Paginar(paginacionDTO).ToList();
+            }
+        }
+
+
+        /// <summary>
+        /// Obtiene el total de objetos bibliográficos en la BBDD
+        /// de forma síncrona
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("inicio_sinc")]
+        //public async Task<ActionResult<List<int>>> GetDatosInicio()
+        public  ActionResult<List<int>> GetDatosInicio2()
+        {
+
+            int numAuth = this.context.Autores.Count();
+            int numEdit = this.context.Editoriales.Count();
+            int numLibros = this.context.Libros.Count();
+            int numlecturas=  this.context.Lecturas.Count();
+            List<int> lista = new List<int>();
+            lista.Add(numAuth);
+            lista.Add(numEdit);
+            lista.Add(numLibros);
+            lista.Add(numlecturas);
+            System.Threading.Thread.Sleep(500);
+            return lista;
+        }
+
+        /// <summary>
+        /// Obtiene el total de objetos bibliográficos en la BBDD
+        /// de forma Asíncrona
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("inicio")]
         public async Task<ActionResult<List<int>>> GetDatosInicio()
         {
@@ -79,7 +165,7 @@ namespace WAPI_Biblos1.Controllers
             int numAuth = await this.context.Autores.CountAsync();
             int numEdit = await this.context.Editoriales.CountAsync();
             int numLibros = await this.context.Libros.CountAsync();
-            int numlecturas= await this.context.Lecturas.CountAsync();
+            int numlecturas = await this.context.Lecturas.CountAsync();
             List<int> lista = new List<int>();
             lista.Add(numAuth);
             lista.Add(numEdit);
@@ -91,6 +177,7 @@ namespace WAPI_Biblos1.Controllers
 
 
 
+
         [HttpGet]
         [Route("todos2")]
         public ActionResult<string> GetAll()
@@ -99,9 +186,14 @@ namespace WAPI_Biblos1.Controllers
             //IEnumerable<mlib> oooo = entidad.mlibs.ToList();
  
 
-            return "Salida del servicio WebApi1";
+            return "Salida del servicio WebApi";
         }
 
+        /// <summary>
+        /// Obtiene una lista paginada de los libros (Sin filtros)
+        /// </summary>
+        /// <param name="paginacionDTO"></param>
+        /// <returns></returns>
         [HttpGet("libros")]
 
         public async Task<ActionResult<List<Libro>>> GetLibros([FromQuery] PaginacionDTO paginacionDTO)
@@ -115,6 +207,16 @@ namespace WAPI_Biblos1.Controllers
             return libros;
 
         }
+
+        /// <summary>
+        /// Obtiene un libro de la BBDD por id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <remarks>
+        /// parámetro ID . Rem
+        /// 
+        /// </remarks>
+        /// <returns></returns>
         [HttpGet("libro")]
         //[Route("libro/{Id:int}")]
         public async Task<ActionResult<Libro>> GetLibroP(int id)
@@ -126,7 +228,15 @@ namespace WAPI_Biblos1.Controllers
                             .FirstOrDefaultAsync());
             return lib;      
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Ejemplo anterior con Post
+        /// </remarks>
+        /// 
         [HttpPost("libro2")]
         //[Route("libro/{Id:int}")]
         public async Task<ActionResult<Libro>> GetLibro(int id)
@@ -206,7 +316,12 @@ namespace WAPI_Biblos1.Controllers
 
 
 
-
+        /// <summary>
+        /// Obtiene lista de libros cuyo título comienza por una determinada letra (con Paginación)
+        /// </summary>
+        /// <param name="paginacionDTO"></param>
+        /// <param name="letra"></param>
+        /// <returns></returns>
         [HttpGet("librosLetra")]
         public async Task<ActionResult<List<Libro>>> GetLibrosLetra([FromQuery] PaginacionDTO paginacionDTO ,string letra="#")
         {
@@ -234,6 +349,11 @@ namespace WAPI_Biblos1.Controllers
             }
         }
 
+        /// <summary>
+        /// Libros cuyo título contiene la cadena pasada como parámetro
+        /// </summary>
+        /// <param name="semilla"></param>
+        /// <returns></returns>
         [HttpGet("nomenclatorlibros")]
         public async Task<ActionResult<List<Libro>>> GetLibrosNomenclator(/*[FromQuery] PaginacionDTO paginacionDTO,*/ string semilla = "sueñan")
         {
@@ -253,7 +373,10 @@ namespace WAPI_Biblos1.Controllers
             return libros;
         }
 
-
+        /// <summary>
+        /// Lista completa de las editoriales existentes
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("editoriales")]
         public async Task<ActionResult<List<Editorial>>> GetEditoriales()
         {
@@ -286,7 +409,11 @@ namespace WAPI_Biblos1.Controllers
 
             return await this.context.Editoriales.AsQueryable().OrderBy(a => a.NombreEditorial).ToListAsync();
         }
-
+        /// <summary>
+        /// Búsqueda tipo Nomenclator dentro de la lista de editoriales
+        /// </summary>
+        /// <param name="semilla"></param>
+        /// <returns></returns>
         [HttpGet("nomenclatoreditorial")]
         public async Task<ActionResult<List<Editorial>>> GetEditorialesletras(string semilla = "")
         {
@@ -295,19 +422,21 @@ namespace WAPI_Biblos1.Controllers
         }
 
         /// <summary>
-        ///                                     TEMAS
+        ///  TEMAS lista de los temas existentes
         /// </summary>
         /// <returns></returns>
-
-
-
-
         [HttpGet("temas")]
         public async Task<ActionResult<List<Tema>>> GetTemas()
         {
             return await this.context.Temas.AsQueryable().OrderBy(a => a.NombreTema).ToListAsync();
         }
 
+        /// <summary>
+        /// Creación de un nuevo tema
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="temaDTO"></param>
+        /// <returns></returns>
         // Alta Tema
         [HttpPut("altat/{id:int}")]
         public async Task<ActionResult> Put(int id, [FromBody] TemaCrearDTO temaDTO)
@@ -327,6 +456,11 @@ namespace WAPI_Biblos1.Controllers
             return Ok(tema);
         }
 
+        /// <summary>
+        /// Eliminación de un tema de la lista de temas
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // Delete Tema
         [HttpDelete("delTema/{id:int}")]
         public async Task<ActionResult> DeleteT(int id)
@@ -342,6 +476,11 @@ namespace WAPI_Biblos1.Controllers
 
         }
 
+        /// <summary>
+        /// Búsqueda tipo Nomenclator de temas
+        /// </summary>
+        /// <param name="semilla"></param>
+        /// <returns></returns>
         [HttpGet("nomenclatortema")]
         public async Task<ActionResult<List<Tema>>> GetTemasletras(string semilla = "")
         {
@@ -374,7 +513,8 @@ namespace WAPI_Biblos1.Controllers
         //}
 
         /// <summary>
-        ///                             AUTORES
+        ///  AUTORES
+        ///  Obtención de un autor por su ID
         /// </summary>
         /// <param name="idautor"></param>
         /// <returns></returns>
@@ -389,7 +529,12 @@ namespace WAPI_Biblos1.Controllers
             return auth;
         }
 
-
+        /// <summary>
+        /// Creación de un nuevo autor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="autorDTO"></param>
+        /// <returns></returns>
         [HttpPut("altaa/{id:int}")]
         public async Task<ActionResult> Put(int id, [FromBody] AutorCrearDTO autorDTO)
         {
@@ -412,7 +557,11 @@ namespace WAPI_Biblos1.Controllers
             return Ok(autor);
 
         }
-
+        /// <summary>
+        /// Eliminación de un autor de la lista de los mismos por su ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("delAutor/{id:int}")]
         public async Task<ActionResult> DeleteA(int id)
         {
@@ -427,6 +576,12 @@ namespace WAPI_Biblos1.Controllers
 
         }
 
+        /// <summary>
+        /// Búsqueda tipo nomenclator de autores.
+        /// Se buscan coincidencias en nombre y en apellidos
+        /// </summary>
+        /// <param name="semilla"></param>
+        /// <returns></returns>
         [HttpGet("nomenclatorautor")]
         public async Task<ActionResult<List<Autor>>> GetAutoresletras(string semilla = "")
         {
@@ -443,22 +598,30 @@ namespace WAPI_Biblos1.Controllers
         }
 
         /// <summary>
-        ///                         LECTURAS
+        ///   Obtiene la lista de lecturas paginada
+        ///   Se pasa como parámetro la página y cantidad de registros por página
         /// </summary>
         /// <returns></returns>
 
         [HttpGet("lecturas")]
 
-        public async Task<ActionResult<List<Lecturas>>> GetLecturas()
+        public async Task<ActionResult<List<Lecturas>>> GetLecturas([FromQuery] PaginacionDTO paginacionDTO)
         {
-            return await this.context.Lecturas.AsQueryable().OrderByDescending(a => a.fecha).ToListAsync();
+            var queryable = context.Lecturas.AsQueryable();
+            await HttpContext.InsertarParametroEnCabecera(queryable);
+            //  public async Task<ActionResult<List<Libro>>> GetLibrosLetra([FromQuery] PaginacionDTO paginacionDTO, string letra = "#")
+           return  await this.context.Lecturas.AsQueryable().OrderByDescending(a => a.fecha).Paginar(paginacionDTO).ToListAsync();
+  }
+
+        
 
 
-        }
 
-        [HttpPut("altalect")]
+
+[HttpPut("altalect")]
         public async Task<ActionResult> Put([FromBody] LecturasDTO lecDTO)
         {
+
             var lectura = await context.Lecturas.FirstOrDefaultAsync(x => x.titulo.Trim() == lecDTO.titulo.Trim());
             try
             {
@@ -503,6 +666,22 @@ namespace WAPI_Biblos1.Controllers
             //            return NoContent();
             return Ok(lectura);
         }
+        /// <summary>
+        /// Obtiene el registro de una lectura a partir del título
+        /// </summary>
+        /// <param name="titulo"></param>
+        /// <returns></returns>
+        [HttpGet("lectura")]
+        public async Task<ActionResult<Lecturas>> GetLectura(string titulo)
+        {
+
+            var lect = await (this.context.Lecturas.Where(x => x.titulo.Trim() == titulo.Trim())
+                            .FirstOrDefaultAsync());
+            return lect;
+        }
+
+
+
 
     }
 }
