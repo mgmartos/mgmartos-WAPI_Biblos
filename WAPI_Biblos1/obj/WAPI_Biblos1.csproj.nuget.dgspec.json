@@ -1,34 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\WAPI_Biblos1.csproj": {}
+    "C:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\WAPI_Biblos1.csproj": {}
   },
   "projects": {
-    "D:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\WAPI_Biblos1.csproj": {
+    "C:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\WAPI_Biblos1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\WAPI_Biblos1.csproj",
+        "projectUniqueName": "C:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\WAPI_Biblos1.csproj",
         "projectName": "WAPI_Biblos1",
-        "projectPath": "D:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\WAPI_Biblos1.csproj",
-        "packagesPath": "C:\\Users\\mgmar\\.nuget\\packages\\",
-        "outputPath": "D:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\obj\\",
+        "projectPath": "C:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\WAPI_Biblos1.csproj",
+        "packagesPath": "C:\\Users\\mgamar\\.nuget\\packages\\",
+        "outputPath": "C:\\Pruebas\\WAPI_Biblos1\\WAPI_Biblos1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Instalaciones\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\mgmar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\mgamar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/sacyr-sf/_packaging/sacyr-andromeda%40Local/nuget/v3/index.json": {},
+          "https://pkgs.dev.azure.com/sacyr-sf/_packaging/sacyr-orion%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -79,7 +78,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.208\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

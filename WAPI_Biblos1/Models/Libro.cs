@@ -33,11 +33,12 @@ namespace WAPI_Biblos1.Models
         public DateTime Fecha  { get; set; }
     }
 
-    [Keyless]
+    //[Keyless]
     public class Lecturas
 {
     [Required]
     [StringLength(maximumLength: 50)]
+    [Key]
     public string titulo { get; set; }
     [StringLength(maximumLength: 50)]
     public string autor { get; set; }
@@ -47,7 +48,7 @@ namespace WAPI_Biblos1.Models
     public int calificacion { get; set; }
     [StringLength(maximumLength: 255)]
     public string comentario { get; set; }
-    public int Ebook { get; set; }
+    public Boolean Ebook { get; set; }
     public DateTime fecha_Inicio { get; set; }
     public int paginas { get; set; }
 }

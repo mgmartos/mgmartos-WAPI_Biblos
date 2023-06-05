@@ -294,6 +294,13 @@ namespace WAPI_Biblos1.Controllers
             return (List<Editorial>)editorialesNombre;
         }
 
+        /// <summary>
+        ///                                     TEMAS
+        /// </summary>
+        /// <returns></returns>
+
+
+
 
         [HttpGet("temas")]
         public async Task<ActionResult<List<Tema>>> GetTemas()
@@ -366,7 +373,11 @@ namespace WAPI_Biblos1.Controllers
         //    return NoContent();
         //}
 
-
+        /// <summary>
+        ///                             AUTORES
+        /// </summary>
+        /// <param name="idautor"></param>
+        /// <returns></returns>
         [HttpGet("autor")]
         public async Task<ActionResult<Autor>> GetAutor(int idautor)
         {
@@ -431,6 +442,11 @@ namespace WAPI_Biblos1.Controllers
 
         }
 
+        /// <summary>
+        ///                         LECTURAS
+        /// </summary>
+        /// <returns></returns>
+
         [HttpGet("lecturas")]
 
         public async Task<ActionResult<List<Lecturas>>> GetLecturas()
@@ -438,6 +454,54 @@ namespace WAPI_Biblos1.Controllers
             return await this.context.Lecturas.AsQueryable().OrderByDescending(a => a.fecha).ToListAsync();
 
 
+        }
+
+        [HttpPut("altalect")]
+        public async Task<ActionResult> Put([FromBody] LecturasDTO lecDTO)
+        {
+            var lectura = await context.Lecturas.FirstOrDefaultAsync(x => x.titulo.Trim() == lecDTO.titulo.Trim());
+            try
+            {
+            if (lectura == null)
+            {
+
+                lectura = new Lecturas()
+                {
+                    titulo = lecDTO.titulo,
+                    autor = lecDTO.autor,
+                    CodAutor = lecDTO.CodAutor,
+                    fecha = lecDTO.fecha,
+                    calificacion = lecDTO.calificacion,
+                    comentario = lecDTO.comentario,
+                    //Ebook = lecDTO.Ebook == true ? 1 : 0,
+                    Ebook = lecDTO.Ebook,
+                    fecha_Inicio = lecDTO.fecha_Inicio,
+                    paginas = lecDTO.paginas
+                };
+                context.Lecturas.Add(lectura);
+            }
+            else
+            {
+                lectura.titulo = lecDTO.titulo;
+                lectura.autor = lecDTO.autor;
+                lectura.CodAutor = lecDTO.CodAutor;
+                lectura.fecha = lecDTO.fecha;
+                lectura.calificacion = lecDTO.calificacion;
+                lectura.comentario = lecDTO.comentario;
+                //lectura.Ebook = lecDTO.Ebook == true ? 1 : 0;
+                lectura.Ebook = lecDTO.Ebook;
+                lectura.fecha_Inicio = lecDTO.fecha_Inicio;
+                lectura.paginas = lecDTO.paginas;
+
+            }
+            await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            //            return NoContent();
+            return Ok(lectura);
         }
 
     }
